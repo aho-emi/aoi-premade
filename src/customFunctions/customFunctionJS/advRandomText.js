@@ -1,30 +1,31 @@
 module.exports = async (d) => {
-    const functionName = "$advRandomText";
-    const data = d.util.aoiFunc(d);
-    const [words, numb = 1] = data.inside.splits;
+  const data = d.util.aoiFunc(d);
+  const [words, numb = 1, allowDuplicates = 'true'] = data.inside.splits;
 
-    if (!words) {
-        const emptyVariable = 'Words';
-        return d.aoiError.fnError(d, "custom", {}, `Words were not provided`);
-    } else {
-        let wordArr = words.split(':');
-        let num = numb > wordArr.length ? wordArr.length : numb;
-        const randWords = [];
-        for (let i = 0; i < num; i++) {
-            let newRandom;
-            do {
-                let rand = Math.floor(Math.random() * wordArr.length);
-                newRandom = wordArr[rand];
-            } while (randWords.includes(newRandom));
+  if (!words) return;
 
-            randWords.push(newRandom);
-        }
-        const output = randWords.join(', ');
+  const wordArr = words.split(',');
+  const num = Math.min(numb, wordArr.length);
 
-        data.result = output;
+  const randWords = [];
+  
+  for (let i = 0; i < num; i++) {
+    let rand = Math.floor(Math.random() * wordArr.length);
+    let newRandom = wordArr[rand];
+
+    if (allowDuplicates !== 'true' && randWords.includes(newRandom)) {
+
+      wordArr.splice(rand, 1);
+      continue;
     }
+    
+    randWords.push(newRandom);
+    wordArr.splice(rand, 1);
+  }
+  
+  data.result = randWords.join(', ');
 
-    return {
-        code: d.util.setCode(data),
-    };
+  return {
+    code: d.util.setCode(data),
+  };
 };

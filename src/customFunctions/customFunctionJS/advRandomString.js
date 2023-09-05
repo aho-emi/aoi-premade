@@ -1,10 +1,11 @@
 module.exports = async (d) => {
-    const data = d.util.aoiFunc(d);
-    const [length, type = "random"] = data.inside.splits;
-
+  const data = d.util.aoiFunc(d);
+  const [length, type = "random"] = data.inside.splits;
+  
+  try {
     let characters = '';
 
-    if (type === 'string') {
+    if (type === 'alphabet') {
         characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
     } else if (type === 'number') {
         characters = '0123456789';
@@ -13,7 +14,11 @@ module.exports = async (d) => {
     } else if (type === 'random') {
         characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_+=<>?';
     } else {
-        throw new Error('Invalid type. Please use "string", "number", "special", or "random".');
+        d.message.channel.send(`\`\`\`Error: Invalid type. Please use "alphabet", "number", "special", or "random".
+Provided In
+  {
+    Function: "$advRandomString",
+  }\`\`\``);
     }
 
     let result = '';
@@ -21,8 +26,10 @@ module.exports = async (d) => {
         const randomIndex = Math.floor(Math.random() * characters.length);
         result += characters.charAt(randomIndex);
     }
-
     data.result = result;
+  } catch (error) {
+  }
 
-    return { code: d.util.setCode(data) };
+  return { code: d.util.setCode(data) };
 };
+

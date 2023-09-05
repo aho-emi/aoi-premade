@@ -1,5 +1,5 @@
 {
-  "name": "@ahoemi/aoi.premade",
+  "name": "@scrapz/aoi.premade",
   "version": "1.0.1",
   "description": "An unofficial aoi.js extension for extra functions and premade commands",
   "main": "index.js",
@@ -21,8 +21,15 @@
     "@akarui/aoi.music": "^2.3.1",
     "aoi.js": "^6.4.0",
     "aoi.parser": "^1.2.6",
+    "axios": "^1.5.0",
+    "bad-words-next": "^2.2.1",
+    "crypto": "^1.0.1",
+    "discord.js": "^14.13.0",
     "express": "^4.18.2",
+    "fetch": "^1.1.0",
     "git": "^0.1.5",
+    "jimp": "^0.22.10",
+    "node-fetch": "^3.3.2",
     "npm": "^9.8.1"
   }
 }
