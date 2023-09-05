@@ -3,6 +3,7 @@ module.exports = async (d) => {
 
   const sides = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
 
+  
   function rollDice() {
     return sides[Math.floor(Math.random() * 6)];
   }
